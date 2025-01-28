@@ -7,19 +7,19 @@ public enum TipoPessoaEnumeration {
 
     private Integer codigo;
 
-    private String nome;
+    private String descricao;
 
-    private TipoPessoaEnumeration(Integer codigo, String nome) {
+    private TipoPessoaEnumeration(Integer codigo, String descricao) {
         this.codigo = codigo;
-        this.nome = nome;
+        this.descricao = descricao;
     }
 
     public Integer getCodigo() {
         return codigo;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDescricao() {
+        return descricao;
     }
 
 }

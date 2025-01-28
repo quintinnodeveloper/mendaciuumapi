@@ -44,6 +44,15 @@ public class PessoaEntity {
     @Column(name = "e_ativo", nullable = false)
     private Boolean eAtivo = true;
 
+    public PessoaEntity() {}
+
+    public PessoaEntity(String nome, String nomeMae, String nomePai, LocalDate dataNascimento) {
+        this.nome = nome;
+        this.nomeMae = nomeMae;
+        this.nomePai = nomePai;
+        this.dataNascimento = dataNascimento;
+    }
+
     public Long getCodigo() {
         return codigo;
     }
