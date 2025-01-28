@@ -2,8 +2,11 @@ package br.com.quintinno.mendaciuumapi.entity;
 
 import java.time.LocalDate;
 
+import br.com.quintinno.mendaciuumapi.dto.ProcessamentoRequestDTO;
 import br.com.quintinno.mendaciuumapi.enumeration.TipoPessoaEnumeration;
 import br.com.quintinno.mendaciuumapi.enumeration.TipoSexoEnumeration;
+import br.com.quintinno.mendaciuumapi.enumeration.TipoSituacaoProcessamentoEnumeration;
+import br.com.quintinno.mendaciuumapi.utility.DateUtility;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,21 +15,24 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_pessoa")
-public class PessoaEntity {
+@Table(name = "tb_preprocessamento")
+public class PreprocessamentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo", nullable = false)
+    @Column(name = "codigo")
     private Long codigo;
 
-    @Column(name = "tipo_pessoa", length = 50, nullable = false)
+    @Column(name = "protocolo", nullable = false)
+    private String numeroProtocolo;
+
+    @Column(name = "tipo_pessoa", length = 50)
     private TipoPessoaEnumeration tipoPessoaEnumeration;
 
     @Column(name = "tipo_sexo", length = 10)
     private TipoSexoEnumeration tipoSexoEnumeration;
 
-    @Column(name = "nome", length = 200, unique = true, nullable = false)
+    @Column(name = "nome", length = 200)
     private String nome;
 
     @Column(name = "nome-social", length = 200)
@@ -41,16 +47,19 @@ public class PessoaEntity {
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @Column(name = "e_ativo", nullable = false)
-    private Boolean eAtivo = true;
+    @Column(name = "tipo_situacao_processamento", nullable = false)
+    private TipoSituacaoProcessamentoEnumeration tipoSituacaoProcessamentoEnumeration;
 
-    public PessoaEntity() {}
-
-    public PessoaEntity(String nome, String nomeMae, String nomePai, LocalDate dataNascimento) {
-        this.nome = nome;
-        this.nomeMae = nomeMae;
-        this.nomePai = nomePai;
-        this.dataNascimento = dataNascimento;
+    public static PreprocessamentoEntity getToEntity(ProcessamentoRequestDTO processamentoRequestDTO) {
+        PreprocessamentoEntity preprocessamentoEntity = new PreprocessamentoEntity();
+            preprocessamentoEntity.setNumeroProtocolo(processamentoRequestDTO.getNumeroProtocolo());
+            preprocessamentoEntity.setTipoPessoaEnumeration(TipoPessoaEnumeration.PESSOA_FISICA);
+            preprocessamentoEntity.setTipoSexoEnumeration(TipoSexoEnumeration.MASCULINO);
+            preprocessamentoEntity.setNome(processamentoRequestDTO.getNome());
+            preprocessamentoEntity.setNomeMae(processamentoRequestDTO.getNomeMae());
+            preprocessamentoEntity.setNomePai(processamentoRequestDTO.getNomePai());
+            preprocessamentoEntity.setDataNascimento(DateUtility.getData(processamentoRequestDTO.getDataNascimento(), DateUtility.getFormatoDDMMYYYY()));
+        return preprocessamentoEntity;
     }
 
     public Long getCodigo() {
@@ -117,37 +126,21 @@ public class PessoaEntity {
         this.dataNascimento = dataNascimento;
     }
 
-    public Boolean geteAtivo() {
-        return eAtivo;
+    public String getNumeroProtocolo() {
+        return numeroProtocolo;
     }
 
-    public void seteAtivo(Boolean eAtivo) {
-        this.eAtivo = eAtivo;
+    public void setNumeroProtocolo(String numeroProtocolo) {
+        this.numeroProtocolo = numeroProtocolo;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-        return result;
+    public TipoSituacaoProcessamentoEnumeration getTipoSituacaoProcessamentoEnumeration() {
+        return tipoSituacaoProcessamentoEnumeration;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        PessoaEntity other = (PessoaEntity) obj;
-        if (codigo == null) {
-            if (other.codigo != null)
-                return false;
-        } else if (!codigo.equals(other.codigo))
-            return false;
-        return true;
+    public void setTipoSituacaoProcessamentoEnumeration(
+            TipoSituacaoProcessamentoEnumeration tipoSituacaoProcessamentoEnumeration) {
+        this.tipoSituacaoProcessamentoEnumeration = tipoSituacaoProcessamentoEnumeration;
     }
 
 }

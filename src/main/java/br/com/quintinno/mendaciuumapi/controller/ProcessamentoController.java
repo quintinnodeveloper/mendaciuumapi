@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.quintinno.mendaciuumapi.dto.ProcessamentoRequestDTO;
+import br.com.quintinno.mendaciuumapi.dto.ProcessamentoResponseDTO;
 import br.com.quintinno.mendaciuumapi.service.ProcessamentoService;
-import br.com.quintinno.mendaciuumapi.transfer.ProcessamentoRequestTransfer;
 
 @RestController
 @RequestMapping("/processamento")
@@ -22,8 +23,8 @@ public class ProcessamentoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> processamento(@RequestBody List<ProcessamentoRequestTransfer> processamentoRequestTransferList) {
-        return ResponseEntity.ok().body(this.processamentoService.processarDados(processamentoRequestTransferList));
+    public ResponseEntity<ProcessamentoResponseDTO> preprocessamento(@RequestBody List<ProcessamentoRequestDTO> processamentoRequestTransferList) {
+        return ResponseEntity.ok().body(this.processamentoService.preprocessamento(processamentoRequestTransferList));
     }
 
 }

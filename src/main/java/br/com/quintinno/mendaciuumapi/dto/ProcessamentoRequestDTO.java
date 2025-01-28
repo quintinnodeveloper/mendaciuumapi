@@ -1,10 +1,12 @@
-package br.com.quintinno.mendaciuumapi.transfer;
+package br.com.quintinno.mendaciuumapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ProcessamentoRequestTransfer {
+public class ProcessamentoRequestDTO {
 
     private String nome;
+
+    private String numeroProtocolo;
 
     @JsonProperty("mae")
     private String nomeMae;
@@ -15,9 +17,9 @@ public class ProcessamentoRequestTransfer {
     @JsonProperty("data_nasc")
     private String dataNascimento;
 
-    public ProcessamentoRequestTransfer() {}
+    public ProcessamentoRequestDTO() {}
 
-    public ProcessamentoRequestTransfer(String nome, String nomeMae, String nomePai, String dataNascimento) {
+    public ProcessamentoRequestDTO(String nome, String nomeMae, String nomePai, String dataNascimento) {
         this.nome = nome;
         this.nomeMae = nomeMae;
         this.nomePai = nomePai;
@@ -54,6 +56,14 @@ public class ProcessamentoRequestTransfer {
 
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public String getNumeroProtocolo() {
+        return numeroProtocolo;
+    }
+
+    public void setNumeroProtocolo(String numeroProtocolo) {
+        this.numeroProtocolo = numeroProtocolo;
     }
 
 }
