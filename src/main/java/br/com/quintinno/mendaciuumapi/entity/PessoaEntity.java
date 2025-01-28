@@ -2,25 +2,47 @@ package br.com.quintinno.mendaciuumapi.entity;
 
 import java.time.LocalDate;
 
+import br.com.quintinno.mendaciuumapi.enumeration.TipoPessoaEnumeration;
+import br.com.quintinno.mendaciuumapi.enumeration.TipoSexoEnumeration;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_pessoa")
 public class PessoaEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "codigo", nullable = false)
     private Long codigo;
 
-    private String tipo;
+    @Column(name = "tipo_pessoa", length = 50, nullable = false)
+    private TipoPessoaEnumeration tipoPessoaEnumeration;
 
+    @Column(name = "tipo_sexo", length = 10)
+    private TipoSexoEnumeration tipoSexoEnumeration;
+
+    @Column(name = "nome", length = 200, nullable = false)
     private String nome;
 
+    @Column(name = "nome-social", length = 200)
     private String nomeSocial;
 
+    @Column(name = "nome-mae", length = 200)
     private String nomeMae;
 
+    @Column(name = "nome-pai", length = 200)
     private String nomePai;
 
-    private LocalDate dataNascimento;
+    @Column(name = "data_nascimento")
+    private LocalDate dataNascimento = LocalDate.now();
 
-    private String sexo;
-
-    private Boolean eAtivo;
+    @Column(name = "e_ativo", nullable = false)
+    private Boolean eAtivo = true;
 
     public Long getCodigo() {
         return codigo;
@@ -30,12 +52,20 @@ public class PessoaEntity {
         this.codigo = codigo;
     }
 
-    public String getTipo() {
-        return tipo;
+    public TipoPessoaEnumeration getTipoPessoaEnumeration() {
+        return tipoPessoaEnumeration;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTipoPessoaEnumeration(TipoPessoaEnumeration tipoPessoaEnumeration) {
+        this.tipoPessoaEnumeration = tipoPessoaEnumeration;
+    }
+
+    public TipoSexoEnumeration getTipoSexoEnumeration() {
+        return tipoSexoEnumeration;
+    }
+
+    public void setTipoSexoEnumeration(TipoSexoEnumeration tipoSexoEnumeration) {
+        this.tipoSexoEnumeration = tipoSexoEnumeration;
     }
 
     public String getNome() {
@@ -78,14 +108,6 @@ public class PessoaEntity {
         this.dataNascimento = dataNascimento;
     }
 
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
     public Boolean geteAtivo() {
         return eAtivo;
     }
@@ -99,9 +121,6 @@ public class PessoaEntity {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-        result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
-        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-        result = prime * result + ((dataNascimento == null) ? 0 : dataNascimento.hashCode());
         return result;
     }
 
@@ -118,21 +137,6 @@ public class PessoaEntity {
             if (other.codigo != null)
                 return false;
         } else if (!codigo.equals(other.codigo))
-            return false;
-        if (tipo == null) {
-            if (other.tipo != null)
-                return false;
-        } else if (!tipo.equals(other.tipo))
-            return false;
-        if (nome == null) {
-            if (other.nome != null)
-                return false;
-        } else if (!nome.equals(other.nome))
-            return false;
-        if (dataNascimento == null) {
-            if (other.dataNascimento != null)
-                return false;
-        } else if (!dataNascimento.equals(other.dataNascimento))
             return false;
         return true;
     }
