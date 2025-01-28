@@ -12,8 +12,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_documento")
-public class DocumentoEntity {
+@Table(name = "tb_pessoa_documento")
+public class PessoaDocumentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,17 +21,15 @@ public class DocumentoEntity {
     private Long codigo;
 
     @ManyToOne
-    @JoinColumn(name = "id_categoria_documento", nullable = false)
-    private CategoriaDocumentoEntity categoriaDocumentoEntity;
+    @JoinColumn(name = "id_pessoa", nullable = false)
+    private PessoaEntity pessoaEntity;
 
-    @Column(name = "numero", length = 50, nullable = false)
-    private String nome;
+    @ManyToOne
+    @JoinColumn(name = "id_documento", nullable = false)
+    private DocumentoEntity documentoEntity;
 
-    @Column(name = "data_expedicao")
-    private LocalDate dataExpedicao;
-
-    @Column(name = "data_vencimento")
-    private LocalDate dataVencimento;
+    @Column(name = "data_criacao")
+    private LocalDate dataCriacao;
 
     public Long getCodigo() {
         return codigo;
@@ -41,36 +39,28 @@ public class DocumentoEntity {
         this.codigo = codigo;
     }
 
-    public CategoriaDocumentoEntity getCategoriaDocumentoEntity() {
-        return categoriaDocumentoEntity;
+    public PessoaEntity getPessoaEntity() {
+        return pessoaEntity;
     }
 
-    public void setCategoriaDocumentoEntity(CategoriaDocumentoEntity categoriaDocumentoEntity) {
-        this.categoriaDocumentoEntity = categoriaDocumentoEntity;
+    public void setPessoaEntity(PessoaEntity pessoaEntity) {
+        this.pessoaEntity = pessoaEntity;
     }
 
-    public String getNome() {
-        return nome;
+    public DocumentoEntity getDocumentoEntity() {
+        return documentoEntity;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDocumentoEntity(DocumentoEntity documentoEntity) {
+        this.documentoEntity = documentoEntity;
     }
 
-    public LocalDate getDataExpedicao() {
-        return dataExpedicao;
+    public LocalDate getDataCriacao() {
+        return dataCriacao;
     }
 
-    public void setDataExpedicao(LocalDate dataExpedicao) {
-        this.dataExpedicao = dataExpedicao;
-    }
-
-    public LocalDate getDataVencimento() {
-        return dataVencimento;
-    }
-
-    public void setDataVencimento(LocalDate dataVencimento) {
-        this.dataVencimento = dataVencimento;
+    public void setDataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     @Override
@@ -89,7 +79,7 @@ public class DocumentoEntity {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DocumentoEntity other = (DocumentoEntity) obj;
+        PessoaDocumentoEntity other = (PessoaDocumentoEntity) obj;
         if (codigo == null) {
             if (other.codigo != null)
                 return false;
