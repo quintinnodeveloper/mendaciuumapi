@@ -1,7 +1,5 @@
 package br.com.quintinno.mendaciuumapi.entity;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,8 +10,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_documento")
-public class DocumentoEntity {
+@Table(name = "tb_cidade")
+public class CidadeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,17 +19,11 @@ public class DocumentoEntity {
     private Long codigo;
 
     @ManyToOne
-    @JoinColumn(name = "id_categoria_documento", nullable = false)
-    private CategoriaDocumentoEntity categoriaDocumentoEntity;
+    @JoinColumn(name = "id_estado", nullable = false)
+    private EstadoEntity estadoEntity;
 
     @Column(name = "nome", length = 50, nullable = false)
     private String nome;
-
-    @Column(name = "data_expedicao")
-    private LocalDate dataExpedicao;
-
-    @Column(name = "data_vencimento")
-    private LocalDate dataVencimento;
 
     public Long getCodigo() {
         return codigo;
@@ -39,14 +31,6 @@ public class DocumentoEntity {
 
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
-    }
-
-    public CategoriaDocumentoEntity getCategoriaDocumentoEntity() {
-        return categoriaDocumentoEntity;
-    }
-
-    public void setCategoriaDocumentoEntity(CategoriaDocumentoEntity categoriaDocumentoEntity) {
-        this.categoriaDocumentoEntity = categoriaDocumentoEntity;
     }
 
     public String getNome() {
@@ -57,20 +41,12 @@ public class DocumentoEntity {
         this.nome = nome;
     }
 
-    public LocalDate getDataExpedicao() {
-        return dataExpedicao;
+    public EstadoEntity getEstadoEntity() {
+        return estadoEntity;
     }
 
-    public void setDataExpedicao(LocalDate dataExpedicao) {
-        this.dataExpedicao = dataExpedicao;
-    }
-
-    public LocalDate getDataVencimento() {
-        return dataVencimento;
-    }
-
-    public void setDataVencimento(LocalDate dataVencimento) {
-        this.dataVencimento = dataVencimento;
+    public void setEstadoEntity(EstadoEntity estadoEntity) {
+        this.estadoEntity = estadoEntity;
     }
 
     @Override
@@ -89,7 +65,7 @@ public class DocumentoEntity {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DocumentoEntity other = (DocumentoEntity) obj;
+        CidadeEntity other = (CidadeEntity) obj;
         if (codigo == null) {
             if (other.codigo != null)
                 return false;

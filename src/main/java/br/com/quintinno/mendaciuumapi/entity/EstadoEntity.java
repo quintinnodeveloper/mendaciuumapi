@@ -1,37 +1,23 @@
 package br.com.quintinno.mendaciuumapi.entity;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_documento")
-public class DocumentoEntity {
+@Table(name = "tb_estado")
+public class EstadoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo", nullable = false)
     private Long codigo;
 
-    @ManyToOne
-    @JoinColumn(name = "id_categoria_documento", nullable = false)
-    private CategoriaDocumentoEntity categoriaDocumentoEntity;
-
     @Column(name = "nome", length = 50, nullable = false)
     private String nome;
-
-    @Column(name = "data_expedicao")
-    private LocalDate dataExpedicao;
-
-    @Column(name = "data_vencimento")
-    private LocalDate dataVencimento;
 
     public Long getCodigo() {
         return codigo;
@@ -39,14 +25,6 @@ public class DocumentoEntity {
 
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
-    }
-
-    public CategoriaDocumentoEntity getCategoriaDocumentoEntity() {
-        return categoriaDocumentoEntity;
-    }
-
-    public void setCategoriaDocumentoEntity(CategoriaDocumentoEntity categoriaDocumentoEntity) {
-        this.categoriaDocumentoEntity = categoriaDocumentoEntity;
     }
 
     public String getNome() {
@@ -57,27 +35,12 @@ public class DocumentoEntity {
         this.nome = nome;
     }
 
-    public LocalDate getDataExpedicao() {
-        return dataExpedicao;
-    }
-
-    public void setDataExpedicao(LocalDate dataExpedicao) {
-        this.dataExpedicao = dataExpedicao;
-    }
-
-    public LocalDate getDataVencimento() {
-        return dataVencimento;
-    }
-
-    public void setDataVencimento(LocalDate dataVencimento) {
-        this.dataVencimento = dataVencimento;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         return result;
     }
 
@@ -89,11 +52,16 @@ public class DocumentoEntity {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DocumentoEntity other = (DocumentoEntity) obj;
+        EstadoEntity other = (EstadoEntity) obj;
         if (codigo == null) {
             if (other.codigo != null)
                 return false;
         } else if (!codigo.equals(other.codigo))
+            return false;
+        if (nome == null) {
+            if (other.nome != null)
+                return false;
+        } else if (!nome.equals(other.nome))
             return false;
         return true;
     }
