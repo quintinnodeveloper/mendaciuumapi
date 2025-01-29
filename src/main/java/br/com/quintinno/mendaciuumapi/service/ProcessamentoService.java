@@ -6,7 +6,9 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.quintinno.mendaciuumapi.dto.PreprocessamentoResponseDTO;
 import br.com.quintinno.mendaciuumapi.dto.ProcessamentoRequestDTO;
 import br.com.quintinno.mendaciuumapi.dto.ProcessamentoResponseDTO;
 import br.com.quintinno.mendaciuumapi.utility.DateUtility;
@@ -35,6 +37,10 @@ public class ProcessamentoService {
             processamentoResponseDTO.setMensagem(MensagemUtitliy.MENSAGEM_SUCESSO_PREPROCESSAMENTO);
             processamentoResponseDTO.setUrl("http://localhost:8080/processamento/".concat(numeroProtocolo.toString()));
         return processamentoResponseDTO;
+    }
+
+    public PreprocessamentoResponseDTO acompanharProcessamento(@RequestParam String numeroProtocolo) {
+        return this.preprocessamentoService.acompanharProcessamento(numeroProtocolo);
     }
 
 }

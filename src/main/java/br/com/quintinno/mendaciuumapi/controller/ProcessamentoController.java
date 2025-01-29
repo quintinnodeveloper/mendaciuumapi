@@ -3,11 +3,14 @@ package br.com.quintinno.mendaciuumapi.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.quintinno.mendaciuumapi.dto.PreprocessamentoResponseDTO;
 import br.com.quintinno.mendaciuumapi.dto.ProcessamentoRequestDTO;
 import br.com.quintinno.mendaciuumapi.dto.ProcessamentoResponseDTO;
 import br.com.quintinno.mendaciuumapi.service.ProcessamentoService;
@@ -25,6 +28,11 @@ public class ProcessamentoController {
     @PostMapping
     public ResponseEntity<ProcessamentoResponseDTO> preprocessamento(@RequestBody List<ProcessamentoRequestDTO> processamentoRequestTransferList) {
         return ResponseEntity.ok().body(this.processamentoService.preprocessamento(processamentoRequestTransferList));
+    }
+
+    @GetMapping("/{numeroProtocolo}")
+    public ResponseEntity<PreprocessamentoResponseDTO> acompanharProcessamento(@PathVariable String numeroProtocolo) {
+        return ResponseEntity.ok().body(this.processamentoService.acompanharProcessamento(numeroProtocolo));
     }
 
 }

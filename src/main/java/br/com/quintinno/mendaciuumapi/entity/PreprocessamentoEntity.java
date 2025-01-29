@@ -9,6 +9,8 @@ import br.com.quintinno.mendaciuumapi.enumeration.TipoSituacaoProcessamentoEnume
 import br.com.quintinno.mendaciuumapi.utility.DateUtility;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +25,7 @@ public class PreprocessamentoEntity {
     @Column(name = "codigo")
     private Long codigo;
 
-    @Column(name = "protocolo", nullable = false)
+    @Column(name = "numero_protocolo", nullable = false)
     private String numeroProtocolo;
 
     @Column(name = "tipo_pessoa", length = 50)
@@ -47,6 +49,7 @@ public class PreprocessamentoEntity {
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_situacao_processamento", nullable = false)
     private TipoSituacaoProcessamentoEnumeration tipoSituacaoProcessamentoEnumeration;
 
@@ -55,6 +58,7 @@ public class PreprocessamentoEntity {
             preprocessamentoEntity.setNumeroProtocolo(processamentoRequestDTO.getNumeroProtocolo());
             preprocessamentoEntity.setTipoPessoaEnumeration(TipoPessoaEnumeration.PESSOA_FISICA);
             preprocessamentoEntity.setTipoSexoEnumeration(TipoSexoEnumeration.MASCULINO);
+            preprocessamentoEntity.setTipoSituacaoProcessamentoEnumeration(TipoSituacaoProcessamentoEnumeration.ACEITO);
             preprocessamentoEntity.setNome(processamentoRequestDTO.getNome());
             preprocessamentoEntity.setNomeMae(processamentoRequestDTO.getNomeMae());
             preprocessamentoEntity.setNomePai(processamentoRequestDTO.getNomePai());
