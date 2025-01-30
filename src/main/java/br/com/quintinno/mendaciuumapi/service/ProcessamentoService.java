@@ -60,15 +60,15 @@ public class ProcessamentoService {
     public void create() {
 
         Set<PreprocessamentoEntity> preprocessamentoEntityList = 
-            this.processamentoImplementacaoRepository.findPreprocessamentoBatch(TipoSituacaoProcessamentoEnumeration.AGUARDANDO_PROCESSAMENTO.name(), 1000);
+            this.processamentoImplementacaoRepository.findPreprocessamentoBatch(TipoSituacaoProcessamentoEnumeration.AGUARDANDO.name(), 1000);
 
         preprocessamentoEntityList.stream().forEach( preprocessamento -> {
             try {
                 if (!this.processamentoImplementacaoRepository.isPessoaCadastrada(preprocessamento.getNome())) {
                     this.pessoaService.create(PessoaEntity.getToEntity(preprocessamento));
-                    preprocessamento.setTipoSituacaoProcessamentoEnumeration(TipoSituacaoProcessamentoEnumeration.FINALLIZADO);
+                    preprocessamento.setTipoSituacaoProcessamentoEnumeration(TipoSituacaoProcessamentoEnumeration.FINALIZADO);
                 } else {
-                    preprocessamento.setTipoSituacaoProcessamentoEnumeration(TipoSituacaoProcessamentoEnumeration.ERRO);
+                    preprocessamento.setTipoSituacaoProcessamentoEnumeration(TipoSituacaoProcessamentoEnumeration.DUPLICADO);
                 }
             } catch (Exception e) {
                 preprocessamento.setTipoSituacaoProcessamentoEnumeration(TipoSituacaoProcessamentoEnumeration.ERRO);

@@ -58,7 +58,7 @@ public class PreprocessamentoEntity {
             preprocessamentoEntity.setNumeroProtocolo(processamentoRequestDTO.getNumeroProtocolo());
             preprocessamentoEntity.setTipoPessoaEnumeration(TipoPessoaEnumeration.PESSOA_FISICA);
             preprocessamentoEntity.setTipoSexoEnumeration(TipoSexoEnumeration.valueOf(processamentoRequestDTO.getSexo().toUpperCase()));
-            preprocessamentoEntity.setTipoSituacaoProcessamentoEnumeration(TipoSituacaoProcessamentoEnumeration.AGUARDANDO_PROCESSAMENTO);
+            preprocessamentoEntity.setTipoSituacaoProcessamentoEnumeration(TipoSituacaoProcessamentoEnumeration.AGUARDANDO);
             preprocessamentoEntity.setNome(processamentoRequestDTO.getNome());
             preprocessamentoEntity.setNomeMae(processamentoRequestDTO.getNomeMae());
             preprocessamentoEntity.setNomePai(processamentoRequestDTO.getNomePai());
