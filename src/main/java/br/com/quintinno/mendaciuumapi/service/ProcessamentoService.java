@@ -40,7 +40,7 @@ public class ProcessamentoService {
     }
 
     public PreprocessamentoResponseDTO acompanharProcessamento(@RequestParam String numeroProtocolo) {
-        return this.preprocessamentoService.acompanharProcessamento(numeroProtocolo);
+        return this.preprocessamentoService.acompanharProcessamento();
     }
 
 }
