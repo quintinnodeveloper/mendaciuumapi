@@ -4,8 +4,12 @@ meta {
   seq: 1
 }
 
-get {
-  url: 
-  body: none
+post {
+  url: http://localhost:8080/processamento/upload
+  body: multipartForm
   auth: none
+}
+
+body:multipart-form {
+  arquivo: @file(/home/jose/Downloads/data.json|/home/jose/Downloads/data (1).json|/home/jose/Downloads/data (2).json|/home/jose/Downloads/data (3).json|/home/jose/Downloads/data (4).json|/home/jose/Downloads/data (5).json|/home/jose/Downloads/data (6).json|/home/jose/Downloads/data (7).json|/home/jose/Downloads/data (8).json|/home/jose/Downloads/data (9).json|/home/jose/Downloads/data (10).json|/home/jose/Downloads/data (11).json)
 }
