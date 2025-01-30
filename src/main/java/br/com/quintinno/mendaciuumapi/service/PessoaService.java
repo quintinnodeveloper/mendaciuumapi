@@ -15,7 +15,10 @@ public class PessoaService {
     }
     
     public PessoaEntity create(PessoaEntity pessoaEntity) {
-        return this.pessoaRepostory.save(pessoaEntity);
+        try {
+            return this.pessoaRepostory.save(pessoaEntity);
+        } catch (Exception e) {}
+        return null;
     }
 
 }

@@ -2,6 +2,7 @@ package br.com.quintinno.mendaciuumapi.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.quintinno.mendaciuumapi.dto.PreprocessamentoResponseDTO;
 import br.com.quintinno.mendaciuumapi.dto.ProcessamentoRequestDTO;
 import br.com.quintinno.mendaciuumapi.dto.ProcessamentoResponseDTO;
+import br.com.quintinno.mendaciuumapi.entity.PessoaEntity;
+import br.com.quintinno.mendaciuumapi.entity.PreprocessamentoEntity;
+import br.com.quintinno.mendaciuumapi.enumeration.TipoSituacaoProcessamentoEnumeration;
+import br.com.quintinno.mendaciuumapi.repository.ProcessamentoImplementacaoRepository;
 import br.com.quintinno.mendaciuumapi.utility.DateUtility;
 import br.com.quintinno.mendaciuumapi.utility.MensagemUtitliy;
 
@@ -19,8 +24,17 @@ public class ProcessamentoService {
 
     private PreprocessamentoService preprocessamentoService;
 
-    public ProcessamentoService(PreprocessamentoService preprocessamentoService) {
+    private ProcessamentoImplementacaoRepository processamentoImplementacaoRepository;
+
+    private PessoaService pessoaService; 
+
+    public ProcessamentoService(
+            PreprocessamentoService preprocessamentoService, 
+            ProcessamentoImplementacaoRepository processamentoImplementacaoRepository,
+            PessoaService pessoaService) {
         this.preprocessamentoService = preprocessamentoService;
+        this.processamentoImplementacaoRepository = processamentoImplementacaoRepository;
+        this.pessoaService = pessoaService;
     }
 
     public ProcessamentoResponseDTO preprocessamento(List<ProcessamentoRequestDTO> processamentoRequestDTOList) {
@@ -41,6 +55,27 @@ public class ProcessamentoService {
 
     public PreprocessamentoResponseDTO acompanharProcessamento(@RequestParam String numeroProtocolo) {
         return this.preprocessamentoService.acompanharProcessamento();
+    }
+
+    public void create() {
+
+        Set<PreprocessamentoEntity> preprocessamentoEntityList = 
+            this.processamentoImplementacaoRepository.findPreprocessamentoBatch(TipoSituacaoProcessamentoEnumeration.AGUARDANDO_PROCESSAMENTO.name(), 1000);
+
+        preprocessamentoEntityList.stream().forEach( preprocessamento -> {
+            try {
+                if (!this.processamentoImplementacaoRepository.isPessoaCadastrada(preprocessamento.getNome())) {
+                    this.pessoaService.create(PessoaEntity.getToEntity(preprocessamento));
+                    preprocessamento.setTipoSituacaoProcessamentoEnumeration(TipoSituacaoProcessamentoEnumeration.FINALLIZADO);
+                } else {
+                    preprocessamento.setTipoSituacaoProcessamentoEnumeration(TipoSituacaoProcessamentoEnumeration.ERRO);
+                }
+            } catch (Exception e) {
+                preprocessamento.setTipoSituacaoProcessamentoEnumeration(TipoSituacaoProcessamentoEnumeration.ERRO);
+            }
+            this.preprocessamentoService.update(preprocessamento);
+        });
+
     }
 
 }

@@ -19,9 +19,9 @@ import br.com.quintinno.mendaciuumapi.dto.ProcessamentoRequestDTO;
 import br.com.quintinno.mendaciuumapi.service.ProcessamentoService;
 
 @Component
-public class ProcessarArquivoScheduler {
+public class ProcessamentoScheduler {
 
-    private final Logger logger = LoggerFactory.getLogger(ProcessarArquivoScheduler.class);
+    private final Logger logger = LoggerFactory.getLogger(ProcessamentoScheduler.class);
 
     private static final String EXTENSAO_ARQUIVO = ".json";
 
@@ -30,7 +30,7 @@ public class ProcessarArquivoScheduler {
 
     private ProcessamentoService processamentoService;
 
-    public ProcessarArquivoScheduler(ProcessamentoService processamentoService) {
+    public ProcessamentoScheduler(ProcessamentoService processamentoService) {
         this.processamentoService = processamentoService;
     }
 
@@ -60,6 +60,12 @@ public class ProcessarArquivoScheduler {
 
         }
 
+    }
+
+    @Scheduled(fixedRate = 60000)
+    public void processarDadosAceitos() {
+        logger.info("Iniciando Processamento de Dados...");
+        this.processamentoService.create();
     }
     
 }

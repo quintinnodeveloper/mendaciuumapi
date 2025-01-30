@@ -34,6 +34,10 @@ public class PreprocessamentoService {
         this.preprocessamentoRepository.save(PreprocessamentoEntity.getToEntity(processamentoRequestDTO));
     }
 
+    public void update(PreprocessamentoEntity preprocessamentoEntity) {
+        this.preprocessamentoRepository.save(preprocessamentoEntity);
+    }
+
     public PreprocessamentoResponseDTO acompanharProcessamento() {
         return new PreprocessamentoResponseDTO();
     }

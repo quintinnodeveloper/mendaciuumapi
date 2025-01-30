@@ -53,6 +53,17 @@ public class PessoaEntity {
         this.dataNascimento = dataNascimento;
     }
 
+    public static PessoaEntity getToEntity(PreprocessamentoEntity preprocessamentoEntity) {
+        PessoaEntity pessoaEntity = new PessoaEntity();
+            pessoaEntity.setTipoPessoaEnumeration(preprocessamentoEntity.getTipoPessoaEnumeration());
+            pessoaEntity.setTipoSexoEnumeration(preprocessamentoEntity.getTipoSexoEnumeration());
+            pessoaEntity.setNome(preprocessamentoEntity.getNome());
+            pessoaEntity.setNomeMae(preprocessamentoEntity.getNomeMae());
+            pessoaEntity.setNomePai(preprocessamentoEntity.getNomePai());
+            pessoaEntity.setDataNascimento(preprocessamentoEntity.getDataNascimento());
+        return pessoaEntity;
+    }
+
     public Long getCodigo() {
         return codigo;
     }

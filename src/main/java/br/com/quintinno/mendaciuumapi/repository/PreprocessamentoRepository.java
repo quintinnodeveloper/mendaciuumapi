@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import br.com.quintinno.mendaciuumapi.entity.PreprocessamentoEntity;
 
-
 @Repository
 public interface PreprocessamentoRepository extends JpaRepository<PreprocessamentoEntity, Long> {
     public List<PreprocessamentoEntity> findByNumeroProtocolo(String numeroProtocolo);

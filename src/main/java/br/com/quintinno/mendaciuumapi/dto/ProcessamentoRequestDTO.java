@@ -8,6 +8,8 @@ public class ProcessamentoRequestDTO {
 
     private String nome;
 
+    private String sexo;
+
     private String numeroProtocolo;
 
     @JsonProperty("mae")
@@ -66,6 +68,14 @@ public class ProcessamentoRequestDTO {
 
     public void setNumeroProtocolo(String numeroProtocolo) {
         this.numeroProtocolo = numeroProtocolo;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
 }
